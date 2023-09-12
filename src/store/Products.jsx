@@ -6,6 +6,7 @@ let initialState = {
     activeCategory: 'all',
     cart: [],
     cartCount: 0,
+    openModal: false,
 }
 
 export default function ProductsReducer(state = initialState, action) {
@@ -22,14 +23,18 @@ export default function ProductsReducer(state = initialState, action) {
             const cart = [...state.cart, payload];
             const cartCount = state.cartCount + 1;
             const total = state.total + payload.price;
-            return { ...state, cart, cartCount, total };
+            return { ...state, cart, cartCount, total };//
         case 'REMOVE_FROM_CART':
             const cartItems = state.cart.filter(product => product.id !== payload.id);
-            const count = state.cartCount - 1;
+            const itemsRemoved = state.cart.filter(product => product.id === payload.id);
+            const count = state.cartCount - itemsRemoved.length;
             const newTotal = state.total - payload.price;
             return { ...state, cart: cartItems, cartCount: count, total: newTotal };
         case 'RESET':
             return initialState;
+
+        case 'OPEN_MODAL':
+            return { ...state, openModal: !state.openModal };
         default:
             return state;
     }
@@ -100,6 +105,12 @@ export const getPrductsBasedOnCategory = (category) => {
     }
 }
 
+
+export  const openModal = () => {
+    return {
+        type: 'OPEN_MODAL',
+    }
+}
 
 
 

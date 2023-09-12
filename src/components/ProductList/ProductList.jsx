@@ -11,8 +11,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import { connect } from "react-redux";
-import { activeCategory, addToCart, removeFromCart, reset,getProducts,getPrductsBasedOnCategory } from "../../store/Products";
-
+import { activeCategory, addToCart, removeFromCart, reset,getProducts,getPrductsBasedOnCategory, openModal } from "../../store/Products";
+import CartModal from '../CartModal/CartModal';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -52,6 +52,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
     return (
+
+        <>
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                 { props.products.map((item, index) => (
@@ -80,6 +82,8 @@ const Item = styled(Paper)(({ theme }) => ({
                 ))}
             </Grid>
         </Box>
+        {props.CartopenModal && <CartModal/>}
+        </>
     )
 }
 
@@ -91,6 +95,8 @@ const mapStateToProps = (state) => {
         cart: state.products.cart,
         cartCount: state.products.cartCount,
         total: state.products.total,
+        CartopenModal: state.products.openModal,
+        
     }
 
 }
@@ -102,6 +108,7 @@ const mapDispatchToProps = {
     reset,
     getProducts,
     getPrductsBasedOnCategory,
+    openModal,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList)

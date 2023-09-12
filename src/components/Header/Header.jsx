@@ -23,7 +23,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import StyledBadge from '@mui/material/Badge';
 import axios from 'axios';
 import { connect } from "react-redux";
-import { activeCategory, addToCart, removeFromCart, reset } from "../../store/Products";
+import { activeCategory, addToCart, removeFromCart, reset, openModal } from "../../store/Products";
 import { PropaneSharp } from '@mui/icons-material';
 
 
@@ -42,7 +42,8 @@ function Header(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
+        props.openModal();
+        
     };
 
     const handleClose = (e) => {
@@ -169,7 +170,8 @@ function Header(props) {
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
                         aria-haspopup="true"
-                        onClick={() => navigate('/cart')}
+                        // onClick={() => navigate('/cart')}
+                        onClick={() => handleMenu()}
                         color="inherit"
                         sx={{ mr: 2, marginTop: 2 }}
                     >
@@ -179,6 +181,11 @@ function Header(props) {
                         </StyledBadge>
 
                     </IconButton>
+
+
+
+
+
                     {/* <Menu
                         id="menu-appbar"
                         anchorEl={anchorEl}
@@ -194,8 +201,8 @@ function Header(props) {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        // <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        // <MenuItem onClick={handleClose}>My account</MenuItem>
                     </Menu> */}
                 </div>
             </Container>
@@ -208,8 +215,10 @@ const mapStateToProps = (state) => ({
     Category: state.products.activeCategory,
     cart: state.products.cart,
     cartCount: state.products.cartCount,
+    total: state.products.total,
+    CartopenModal: state.products.openModal,
 });
 
-const mapDispatchToProps = { activeCategory, addToCart, removeFromCart, reset };
+const mapDispatchToProps = { activeCategory, addToCart, removeFromCart, reset, openModal };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
