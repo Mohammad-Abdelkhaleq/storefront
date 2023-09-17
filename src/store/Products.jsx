@@ -7,6 +7,8 @@ let initialState = {
     cart: [],
     cartCount: 0,
     openModal: false,
+    productOpenmodal: false,
+    total: 0,
 }
 
 export default function ProductsReducer(state = initialState, action) {
@@ -35,6 +37,8 @@ export default function ProductsReducer(state = initialState, action) {
 
         case 'OPEN_MODAL':
             return { ...state, openModal: !state.openModal };
+        case 'OPEN_PRODUCT_MODAL':
+            return { ...state, productOpenmodal: !state.productOpenmodal };
         default:
             return state;
     }
@@ -109,6 +113,12 @@ export const getPrductsBasedOnCategory = (category) => {
 export  const openModal = () => {
     return {
         type: 'OPEN_MODAL',
+    }
+}
+
+export const openProductModal = () => {
+    return {
+        type: 'OPEN_PRODUCT_MODAL',
     }
 }
 

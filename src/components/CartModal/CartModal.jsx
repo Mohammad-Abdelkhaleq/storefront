@@ -48,45 +48,46 @@ function CartModal(props) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}   >
-                    {props.cart.length !== 0 && 
-                    <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        { props.cart.map((item, index) => (
-                            <Grid item xs={2} sm={4} md={4} key={index}>
-                                <Card sx={{ maxWidth: 345, height: 300 , overflow:'scroll' }}>
-                                    <CardMedia
-                                        sx={{ height: 200}}
-                                        image={item.image}
-                                        title="green iguana"
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div" style={{ fontSize: 'small', height: 50, marginBottom:20 }}>
-                                            {item.title}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Button size="small"
-                                            onClick={() => props.removeFromCart(item)}
-                                            >remove</Button>
-                                    </CardActions>
-                                </Card>
+                    {props.cart.length !== 0 &&
+                        <Box sx={{ flexGrow: 1 }}>
+                            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                                {props.cart.map((item, index) => (
+                                    <Grid item xs={2} sm={4} md={4} key={index}>
+                                        <Card sx={{ maxWidth: 345, height: 300, overflow: 'scroll' }}>
+                                            <CardMedia
+                                                sx={{ height: 200 }}
+                                                image={item.image}
+                                                title="green iguana"
+                                            />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" component="div" style={{ fontSize: 'small', height: 50, marginBottom: 20 }}>
+                                                    {item.title}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                <Button size="small"
+                                                    onClick={() => props.removeFromCart(item)}
+                                                >remove</Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                ))}
                             </Grid>
-                        ))}
-                    </Grid>
-                </Box>
+                        </Box>
                     }
 
                     {props.cart.length === 0 && <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         Your Cart is Empty
                     </Typography>}
+                    <Typography variant="h6" component="div" style={{ fontSize: 'small', height: 50, marginBottom: 20 }}>
+                        {(() => {
+                            let totalitems = props.cart.length;
+                            let price = Math.floor(Math.random() * 100);
+                            return `Total Items: ${totalitems} / Total Price: ${price}`;
+                        })()}
+                    </Typography>
 
-                    <Button onClick={handleClose}>Close</Button>
-
-
-
-
-
-
+                    {/* <Button onClick={handleClose}>Close</Button> */}
                 </Box>
             </Modal>
         </div>
